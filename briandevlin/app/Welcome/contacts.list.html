@@ -1,0 +1,6 @@
+﻿<h2>All Contacts</h2>
+<ul>
+    <li ng-repeat="contact in contacts">
+        <a ui-sref="welcome.detail({contactId:contact.id})">{{contact.name}}{{resA}}</a>
+    </li>
+</ul>   

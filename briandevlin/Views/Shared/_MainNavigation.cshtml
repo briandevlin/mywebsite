@@ -1,0 +1,23 @@
+﻿<div class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li ui-sref-active="active"><a ui-sref="state1">State 1</a></li>
+                <li ui-sref-active="active"><a ui-sref="state2">State 2</a></li>
+                <li ui-sref-active="active"><a ui-sref="welcome">Welcome State</a></li>
+                <li ui-sref-active="active"><a ui-sref="error">Error State</a></li>
+                <li ui-sref-active="active"><a ui-sref="about">About State</a></li>
+                <li><a ui-sref="about-me" ng-class="{ active: $state.is('about-me') }">About Me</a></li>
+            </ul>
+            <p ui-view="hint" class="navbar-text pull-right"></p>
+        </div>
+    </div>
+</div>
