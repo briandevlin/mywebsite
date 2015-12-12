@@ -70,7 +70,7 @@ namespace briandevlin.App_Start
                 bundles.Add(scriptBundle);
 
                 // Generate a new bundle script.  This should only be done on a local box as running from the build server causes issues.
-                //GenerateBundleJS(scriptBundle, bundles);
+                GenerateBundleJS(scriptBundle, bundles);
             }
 #elif (DEBUG && !LOCAL)
             scriptBundle.Include(string.Format("~/{0}/briandevlin.bundled.js", "scripts"));
@@ -80,5 +80,78 @@ namespace briandevlin.App_Start
             bundles.Add(scriptBundle);
 #endif
         }
+          private async static void GenerateBundleJS(ScriptBundle scriptBundle, BundleCollection bundles)
+        {
+            string bundleOutputPath = Path.Combine(HttpRuntime.AppDomainAppPath, BundleOutputFile);
+            BundleContext context = new BundleContext(new HttpContextWrapper(HttpContext.Current), bundles, ScriptsBundleVirtualPath);
+            System.Text.StringBuilder fileSpacer = new System.Text.StringBuilder();
+
+            try
+            {
+                using (StreamWriter outputStream = new StreamWriter(bundleOutputPath))
+                {
+                    outputStream.BaseStream.Seek(0, SeekOrigin.End);
+                    System.Collections.Generic.List<string> filePaths = PrepareFileList(scriptBundle.EnumerateFiles(context));
+
+                    foreach (string filePath in filePaths)
+                    {
+                        string fileSpacerText = BuildFileSpacer(fileSpacer, filePath);
+
+                        await outputStream.WriteAsync(fileSpacerText);
+
+                        using (StreamReader jsFileStream = new StreamReader(filePath))
+                        {
+                            await outputStream.WriteAsync(await jsFileStream.ReadToEndAsync());
+                        }
+                    }
+                }
+            }
+            catch (System.NullReferenceException nullEx)
+            {
+                string error = nullEx.Message;
+            }
+        }
+
+        private static string BuildFileSpacer(System.Text.StringBuilder spacer, string filename)
+        {
+            spacer.Clear();
+
+            spacer.AppendLine();
+            spacer.AppendLine("//*********************************************************");
+            spacer.AppendFormat("// File: {0}", filename);
+            spacer.AppendLine();
+            spacer.AppendFormat("// Last updated: {0}", System.DateTime.Now.ToString("G"));
+            spacer.AppendLine();
+            spacer.AppendLine("//");
+
+            return spacer.ToString();
+        }
+
+        private static System.Collections.Generic.List<string> PrepareFileList(System.Collections.Generic.IEnumerable<BundleFile> bundleFiles)
+        {
+            // Guarantee no dupliates (the script bundle is including a few files twice
+            // Convert virtual paths to file paths
+            System.Collections.Generic.List<string> filePaths = new System.Collections.Generic.List<string>();
+
+            foreach (BundleFile file in bundleFiles)
+            {
+                // Convert path
+                string convertedPath = Path.Combine(HttpRuntime.AppDomainAppPath, file.VirtualFile.VirtualPath.Substring(1));
+
+                // Do not include the output file
+                if (!file.VirtualFile.Name.Contains(BundleOutputFile))
+                {
+                    // Only include if not already in the list
+                    if (!filePaths.Contains(convertedPath))
+                    {
+                        filePaths.Add(convertedPath);
+                    }
+                }
+            }
+
+            return filePaths;
+        }
     }
+    
+    
 }

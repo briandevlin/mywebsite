@@ -45,7 +45,7 @@
     uiRouteConfig.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
     function uiRouteConfig($stateProvider, $urlRouterProvider, $locationProvider) {
 
-        $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(false);
 
         //////////////////////////
         // State Configurations //
