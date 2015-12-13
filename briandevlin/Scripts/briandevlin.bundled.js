@@ -1,7 +1,7 @@
 
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/app.core.module.js
-// Last updated: 12/12/2015 8:52:59 AM
+// Last updated: 12/13/2015 1:17:25 PM
 //
 (function () {
     'use strict';
@@ -18,20 +18,35 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/app.module.js
-// Last updated: 12/12/2015 8:53:19 AM
+// Last updated: 12/13/2015 1:17:25 PM
 //
 (function () {
     'use strict';
 
     angular
         .module('app', [
-            'app.core',
-            'app.welcome'
+            /*
+         * Order is not important. Angular makes a
+         * pass to register all of the modules listed        
+         */
+
+        /*
+         * Everybody has access to these.
+         * We could place these under every feature area,
+         * but this is easier to maintain.
+         */
+        'app.core',
+      
+        /*
+         * Feature areas
+         */          
+            'app.welcome',
+             'app.route1'
         ]);
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/app.config.js
-// Last updated: 12/12/2015 8:53:26 AM
+// Last updated: 12/13/2015 1:17:25 PM
 //
 (function () {
     'use strict';
@@ -48,8 +63,8 @@
                 // to active whenever 'contacts.list' or one of its decendents is active.
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
-                $rootScope.$on('$stateChangeStart', function (event, tostate) {
-                   // var greeting = tostate.data.customdata1 + " and " + tostate.data.customdata2;
+                $rootScope.$on('$stateChangeStart', function (event, toState) {
+                    // var greeting = toState.data.customdata1 + " and " + toState.data.customdata2;
                     console.log('$stateChangeStart');
 
                     // would print "hello world!" when 'parent' is activated
@@ -75,10 +90,8 @@
         )
         .config(uiRouteConfig);
 
-
-
     uiRouteConfig.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
-    function uiRouteConfig($stateProvider, $urlRouterProvider, $locationProvider) {
+    function uiRouteConfig( $stateProvider, $urlRouterProvider, $locationProvider) {
 
         $locationProvider.html5Mode(false);
 
@@ -89,22 +102,12 @@
         // of the parent state template. Since this is a top level state, 
         // its parent state template is index.cshtml.
         $stateProvider
-         .state('state1', {
-             url: "/state1",
-             templateUrl: "app/welcome/route1.html"
-         })
-        .state('state1.list', {
-            url: "/list",
-            templateUrl: "app/welcome/route1.list.html",
-            controller: ['$scope',function ($scope) {
-                $scope.items = ["A", "List", "Of", "Items"];
-            }]
-        })
-         .state('state2', {
+       
+         .state('state.state2', {
              url: "/state2",
              templateUrl: "app/welcome/route2.html"
          })
-         .state('state2.list', {
+         .state('state.state2.list', {
              url: "/list",
              templateUrl: "app/welcome/route2.list.html",
              controller: ['$scope',function ($scope) {
@@ -116,37 +119,38 @@
                 customData1: "Hello",
                 customData2: "World!"
             },
-            onEnter: function (resA) {
-                console.info('onEnter: ' + resA);
-            },
-            onExit: function (resA) {
-                console.info('onExit: ' + resA);
-            },
+            //onEnter: function (resA) {
+            //    console.info('onEnter: ' + resA);
+            //},
+            //onExit: function (resA) {
+            //    console.info('onExit: ' + resA);
+            //},
             resolve: {
                 // Example using function with simple return value.
                 // Since it's not a promise, it resolves immediately.               
                 resA: function () {
                     return { 'value': ' Inherited value' };
                 },
-                // Example showing returning of custom made promise
-                greeting: function ($q, $timeout) {
+                //Example showing returning of custom made promise
+                
+                greeting: ['$q', '$timeout',function ($q, $timeout) {
                     var deferred = $q.defer();
                     $timeout(function () {
                         deferred.resolve('Hello!');
                     }, 1000);
                     return deferred.promise;
-                },
+                }],
                 // Another promise example. If you need to do some 
                 // processing of the result, use .then, and your 
                 // promise is chained in for free. This is another
                 // typical use case of resolve.
-                promiseObj2: function ($http) {
-                    return $http({ method: 'GET', url: '#/route1' })
-                       .then(function (data) {
-                           //return doSomeStuffFirst(data);
-                           return data;
-                       });
-                }
+                //promiseObj2: function ($http) {
+                //    return $http({ method: 'GET', url: '#/route1' })
+                //       .then(function (data) {
+                //           //return doSomeStuffFirst(data);
+                //           return data;
+                //       });
+                //}
             },
             url: "/welcome",
             templateUrl: "app/welcome/welcome.html",
@@ -184,7 +188,7 @@
         // Redirects and Otherwise //
         /////////////////////////////
 
-        $urlRouterProvider.otherwise("/state1")
+        $urlRouterProvider.otherwise("/state/state1")
 
     }
 
@@ -229,8 +233,20 @@
     //}
 })();
 //*********************************************************
+// File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-module.js
+// Last updated: 12/13/2015 1:17:25 PM
+//
+(function () {
+    'use strict';
+
+    angular
+        .module('app.route1', [
+            'ui.router'
+        ]);
+})();
+//*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/Welcome/welcome-module.js
-// Last updated: 12/12/2015 8:53:32 AM
+// Last updated: 12/13/2015 1:17:25 PM
 //
 (function () {
     'use strict';
@@ -259,7 +275,7 @@
                   // but we'll overwrite customData2
                   customData2:  "UI-Router!"
               },
-              template: '<h1>{{title}}{{resA}}</h1>',
+              template: '<h1>header title</h1>',
               controller: ['$scope', 'resA',function ($scope, resA) {
                   $scope.resA = resA.value;
                   $scope.title = 'My Contacts';
@@ -421,8 +437,98 @@
    
 })();
 //*********************************************************
+// File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-config.js
+// Last updated: 12/13/2015 1:17:25 PM
+//
+(function () {
+    'use strict';
+
+    angular
+        .module('app.route1')
+        .run(
+          ['$rootScope', '$state', '$stateParams',
+            function ($rootScope, $state, $stateParams) {
+
+
+            }
+          ]
+        )
+        .config(route1Config);
+
+    route1Config.$inject = ['$stateProvider'];
+
+    function route1Config($stateProvider) {
+
+        $stateProvider
+            .state('state', {
+                abstract: true,
+                url: '/state',
+
+                // Note: abstract still needs a ui-view for its children to populate.
+                // You can simply add it inline here.
+                template: '<ui-view/>'
+            })
+         .state('state.state1', {
+             url: "/state1",
+             data: {
+                 customDataHello: "Hello",
+                 customDataWorld: "World!"
+             },
+             resolve: {
+                 resource1: function () {
+                     return { 'value': 'resource1' };
+                 }
+             },
+             templateUrl: "app/route1/route1.html"
+         })
+        .state('state.state1.alist', {
+           // parent: 'state1',
+            url: "/alist",
+            templateUrl: "app/route1/route1.list.html",
+            controllerAs: 'vm',
+            controller: 'route1Controller'
+            //controller: ['resource1', function (resource1) {
+            //    var vm = this;
+            //    vm.resource = resource1.value;
+
+            //    vm.items = ["A", "List", "Of", "Items"];
+            //}]
+        })
+
+
+    }
+
+
+})();
+//*********************************************************
+// File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-controller.js
+// Last updated: 12/13/2015 1:17:25 PM
+//
+(function () {
+    'use strict';
+
+    angular
+        .module('app.route1')
+        .controller('route1Controller', route1Controller);
+
+    route1Controller.$inject = ["$state", 'resource1'];
+    function route1Controller($state, resource1) {
+        var vm = this;
+      
+        InitailizeController();
+
+        function InitailizeController() {
+           
+            vm.resource = resource1.value;
+
+            vm.items = ["A", "List", "Of", "Items"];
+
+        }
+    }
+})();
+//*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/Welcome/Welcome-controller.js
-// Last updated: 12/12/2015 8:53:38 AM
+// Last updated: 12/13/2015 1:17:25 PM
 //
 (function () {
     'use strict';
@@ -431,17 +537,19 @@
         .module('app.welcome')
         .controller('welcome-controller', welcomeController);
 
-    welcomeController.$inject = ["$rootScope", "$scope", "$state", "resA", "greeting", "promiseObj2"];
+    welcomeController.$inject = ["$rootScope", "$scope", "$state", "resA", "greeting"/*, "promiseObj2"*/];
 
-    function welcomeController($rootScope, $scope, $state, resA, greeting, promiseObj2)
+    function welcomeController($rootScope, $scope, $state, resA, greeting /*, promiseObj2*/)
     {
-        
+        var vm = this;
+
         console.info(resA.value);
         console.info(greeting);
-        console.info(promiseObj2);
-        console.log($state.current.data);
+        console.info(vm);
+        //console.info(promiseObj2);
+        //console.log($state.current.data);
 
-        this.resB = 'resb';
+        vm.resB = 'resource B';
 
         IniailizeController();
 
@@ -450,15 +558,15 @@
             
 
             $rootScope.$on('$statechangestart', function (event, tostate) {
-                var greeting = tostate.data.customdata1 + " and " + tostate.data.customdata2;
-                console.log(greeting);
+                //var greeting = tostate.data.customdata1 + " and " + tostate.data.customdata2;
+                //console.log(greeting);
 
                 // would print "hello world!" when 'parent' is activated
                 // would print "hello ui-router!" when 'parent.child' is activated
             });
            
-            $scope.resA = resA.value;
-            $scope.contacts = [
+           // $scope.resA = resA.value;
+            vm.contacts = [
                                 {
                                     "id": 1,
                                     "name": "Alice",

@@ -76,7 +76,7 @@ namespace briandevlin.App_Start
             scriptBundle.Include(string.Format("~/{0}/briandevlin.bundled.js", "scripts"));
             bundles.Add(scriptBundle);
 #elif !DEBUG
-            scriptBundle.Include(string.Format("~/{0}/briandevlin.bundled.min.js", "scripts"));
+            scriptBundle.Include(string.Format("~/{0}/briandevlin.bundled.js", "scripts"));
             bundles.Add(scriptBundle);
 #endif
         }

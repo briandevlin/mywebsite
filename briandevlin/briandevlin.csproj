@@ -106,12 +106,15 @@
     <Content Include="app\app.config.js" />
     <Content Include="app\app.core.module.js" />
     <Content Include="app\app.module.js" />
+    <Content Include="app\route1\route1-module.js" />
+    <Content Include="app\route1\route1-config.js" />
+    <Content Include="app\route1\route1-controller.js" />
     <Content Include="app\Welcome\contacts.detail.html" />
     <Content Include="app\Welcome\contacts.detail.item.edit.html" />
     <Content Include="app\Welcome\contacts.detail.item.html" />
     <Content Include="app\Welcome\contacts.list.html" />
-    <Content Include="app\Welcome\route1.html" />
-    <Content Include="app\Welcome\route1.list.html" />
+    <Content Include="app\route1\route1.html" />
+    <Content Include="app\route1\route1.list.html" />
     <Content Include="app\Welcome\route2.html" />
     <Content Include="app\Welcome\route2.list.html" />
     <Content Include="app\Welcome\Welcome-controller.js" />

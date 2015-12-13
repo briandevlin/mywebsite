@@ -5,17 +5,19 @@
         .module('app.welcome')
         .controller('welcome-controller', welcomeController);
 
-    welcomeController.$inject = ["$rootScope", "$scope", "$state", "resA", "greeting", "promiseObj2"];
+    welcomeController.$inject = ["$rootScope", "$scope", "$state", "resA", "greeting"/*, "promiseObj2"*/];
 
-    function welcomeController($rootScope, $scope, $state, resA, greeting, promiseObj2)
+    function welcomeController($rootScope, $scope, $state, resA, greeting /*, promiseObj2*/)
     {
-        
+        var vm = this;
+
         console.info(resA.value);
         console.info(greeting);
-        console.info(promiseObj2);
-        console.log($state.current.data);
+        console.info(vm);
+        //console.info(promiseObj2);
+        //console.log($state.current.data);
 
-        this.resB = 'resb';
+        vm.resB = 'resource B';
 
         IniailizeController();
 
@@ -24,15 +26,15 @@
             
 
             $rootScope.$on('$statechangestart', function (event, tostate) {
-                var greeting = tostate.data.customdata1 + " and " + tostate.data.customdata2;
-                console.log(greeting);
+                //var greeting = tostate.data.customdata1 + " and " + tostate.data.customdata2;
+                //console.log(greeting);
 
                 // would print "hello world!" when 'parent' is activated
                 // would print "hello ui-router!" when 'parent.child' is activated
             });
            
-            $scope.resA = resA.value;
-            $scope.contacts = [
+           // $scope.resA = resA.value;
+            vm.contacts = [
                                 {
                                     "id": 1,
                                     "name": "Alice",

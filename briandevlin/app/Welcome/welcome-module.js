@@ -25,7 +25,7 @@
                   // but we'll overwrite customData2
                   customData2:  "UI-Router!"
               },
-              template: '<h1>{{title}}{{resA}}</h1>',
+              template: '<h1>header title</h1>',
               controller: ['$scope', 'resA',function ($scope, resA) {
                   $scope.resA = resA.value;
                   $scope.title = 'My Contacts';

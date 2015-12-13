@@ -13,8 +13,8 @@
                 // to active whenever 'contacts.list' or one of its decendents is active.
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
-                $rootScope.$on('$stateChangeStart', function (event, tostate) {
-                   // var greeting = tostate.data.customdata1 + " and " + tostate.data.customdata2;
+                $rootScope.$on('$stateChangeStart', function (event, toState) {
+                    // var greeting = toState.data.customdata1 + " and " + toState.data.customdata2;
                     console.log('$stateChangeStart');
 
                     // would print "hello world!" when 'parent' is activated
@@ -40,10 +40,8 @@
         )
         .config(uiRouteConfig);
 
-
-
     uiRouteConfig.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
-    function uiRouteConfig($stateProvider, $urlRouterProvider, $locationProvider) {
+    function uiRouteConfig( $stateProvider, $urlRouterProvider, $locationProvider) {
 
         $locationProvider.html5Mode(false);
 
@@ -54,22 +52,12 @@
         // of the parent state template. Since this is a top level state, 
         // its parent state template is index.cshtml.
         $stateProvider
-         .state('state1', {
-             url: "/state1",
-             templateUrl: "app/welcome/route1.html"
-         })
-        .state('state1.list', {
-            url: "/list",
-            templateUrl: "app/welcome/route1.list.html",
-            controller: ['$scope',function ($scope) {
-                $scope.items = ["A", "List", "Of", "Items"];
-            }]
-        })
-         .state('state2', {
+       
+         .state('state.state2', {
              url: "/state2",
              templateUrl: "app/welcome/route2.html"
          })
-         .state('state2.list', {
+         .state('state.state2.list', {
              url: "/list",
              templateUrl: "app/welcome/route2.list.html",
              controller: ['$scope',function ($scope) {
@@ -81,37 +69,38 @@
                 customData1: "Hello",
                 customData2: "World!"
             },
-            onEnter: function (resA) {
-                console.info('onEnter: ' + resA);
-            },
-            onExit: function (resA) {
-                console.info('onExit: ' + resA);
-            },
+            //onEnter: function (resA) {
+            //    console.info('onEnter: ' + resA);
+            //},
+            //onExit: function (resA) {
+            //    console.info('onExit: ' + resA);
+            //},
             resolve: {
                 // Example using function with simple return value.
                 // Since it's not a promise, it resolves immediately.               
                 resA: function () {
                     return { 'value': ' Inherited value' };
                 },
-                // Example showing returning of custom made promise
-                greeting: function ($q, $timeout) {
+                //Example showing returning of custom made promise
+                
+                greeting: ['$q', '$timeout',function ($q, $timeout) {
                     var deferred = $q.defer();
                     $timeout(function () {
                         deferred.resolve('Hello!');
                     }, 1000);
                     return deferred.promise;
-                },
+                }],
                 // Another promise example. If you need to do some 
                 // processing of the result, use .then, and your 
                 // promise is chained in for free. This is another
                 // typical use case of resolve.
-                promiseObj2: function ($http) {
-                    return $http({ method: 'GET', url: '#/route1' })
-                       .then(function (data) {
-                           //return doSomeStuffFirst(data);
-                           return data;
-                       });
-                }
+                //promiseObj2: function ($http) {
+                //    return $http({ method: 'GET', url: '#/route1' })
+                //       .then(function (data) {
+                //           //return doSomeStuffFirst(data);
+                //           return data;
+                //       });
+                //}
             },
             url: "/welcome",
             templateUrl: "app/welcome/welcome.html",
@@ -149,7 +138,7 @@
         // Redirects and Otherwise //
         /////////////////////////////
 
-        $urlRouterProvider.otherwise("/state1")
+        $urlRouterProvider.otherwise("/state/state1")
 
     }
 

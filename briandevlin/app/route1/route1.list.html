@@ -1,0 +1,12 @@
+﻿<h3>List of State 1 Items</h3>
+<div>{{vm.resource}}</div>
+<div>
+    Search
+    <input ng-model="vm.searchName">
+</div>
+<div>
+    <ul>
+        <li ng-repeat="item in vm.items  | filter: vm.searchName | orderBy: $index as filtered_result  track by $index">[{{$index}}] {{item}}</li>
+    </ul>
+</div>
+
