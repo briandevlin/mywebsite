@@ -1,7 +1,7 @@
 
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/app.core.module.js
-// Last updated: 12/13/2015 1:17:25 PM
+// Last updated: 12/13/2015 1:24:47 PM
 //
 (function () {
     'use strict';
@@ -18,7 +18,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/app.module.js
-// Last updated: 12/13/2015 1:17:25 PM
+// Last updated: 12/13/2015 1:24:47 PM
 //
 (function () {
     'use strict';
@@ -46,7 +46,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/app.config.js
-// Last updated: 12/13/2015 1:17:25 PM
+// Last updated: 12/13/2015 1:24:47 PM
 //
 (function () {
     'use strict';
@@ -234,7 +234,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-module.js
-// Last updated: 12/13/2015 1:17:25 PM
+// Last updated: 12/13/2015 1:24:47 PM
 //
 (function () {
     'use strict';
@@ -246,7 +246,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/Welcome/welcome-module.js
-// Last updated: 12/13/2015 1:17:25 PM
+// Last updated: 12/13/2015 1:24:47 PM
 //
 (function () {
     'use strict';
@@ -438,7 +438,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-config.js
-// Last updated: 12/13/2015 1:17:25 PM
+// Last updated: 12/13/2015 1:24:47 PM
 //
 (function () {
     'use strict';
@@ -502,7 +502,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-controller.js
-// Last updated: 12/13/2015 1:17:25 PM
+// Last updated: 12/13/2015 1:24:47 PM
 //
 (function () {
     'use strict';
@@ -528,7 +528,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/Welcome/Welcome-controller.js
-// Last updated: 12/13/2015 1:17:25 PM
+// Last updated: 12/13/2015 1:24:47 PM
 //
 (function () {
     'use strict';

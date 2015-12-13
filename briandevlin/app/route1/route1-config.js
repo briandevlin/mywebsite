@@ -39,9 +39,9 @@
              },
              templateUrl: "app/route1/route1.html"
          })
-        .state('state.state1.list', {
+        .state('state.state1.alist', {
            // parent: 'state1',
-            url: "/list",
+            url: "/alist",
             templateUrl: "app/route1/route1.list.html",
             controllerAs: 'vm',
             controller: 'route1Controller'
