@@ -14,24 +14,24 @@
         //////////////
         // Contacts //
         //////////////
-          .state('contacts', {
-              abstract: true,
-              parent: 'welcome',
-              // This abstract state will prepend '/contacts' onto the urls of all its children.
-              url: '/contacts',
+          //.state('contacts', {
+          //    abstract: true,
+          //    parent: 'welcome',
+          //    // This abstract state will prepend '/contacts' onto the urls of all its children.
+          //    url: '/contacts',
 
-              data:{
-                  // customData1 inherited from 'parent'
-                  // but we'll overwrite customData2
-                  customData2:  "UI-Router!"
-              },
-              template: '<h1>header title</h1>',
-              controller: ['$scope', 'resA',function ($scope, resA) {
-                  $scope.resA = resA.value;
-                  $scope.title = 'My Contacts';
-              }]
+          //    data:{
+          //        // customData1 inherited from 'parent'
+          //        // but we'll overwrite customData2
+          //        customData2:  "UI-Router!"
+          //    },
+          //    template: '<h1>header title</h1>',
+          //    controller: ['$scope', 'resA',function ($scope, resA) {
+          //        $scope.resA = resA.value;
+          //        $scope.title = 'My Contacts';
+          //    }]
                                                
-          })
+          //})
 
         /////////////////////
         // Contacts > List //
@@ -40,8 +40,8 @@
 
         // Using a '.' within a state name declares a child within a parent.
         // So you have a new state 'list' within the parent 'welcome' state.
-        .state('list', {
-            parent: 'welcome',
+        .state('state.welcome.list', {
+           // parent: 'welcome',
             // Using an empty url means that this child state will become active
             // when its parent's url is navigated to. Urls of child states are
             // automatically appended to the urls of their parent. So this state's
@@ -61,7 +61,7 @@
 
         // You can have unlimited children within a state. Here is a second child
         // state within the 'contacts' parent state.
-        .state('welcome.detail', {
+        .state('state.welcome.detail', {
 
             // Urls can have parameters. They can be specified like :param or {param}.
             // If {} is used, then you can also specify a regex pattern that the param
@@ -120,7 +120,7 @@
         //////////////////////////////
         // Contacts > Detail > Item //
         //////////////////////////////
-           .state('welcome.detail.item', {
+           .state('state.welcome.detail.item', {
 
                // So following what we've learned, this state's full url will end up being
                // '/contacts/{contactId}/item/:itemId'. We are using both types of parameters

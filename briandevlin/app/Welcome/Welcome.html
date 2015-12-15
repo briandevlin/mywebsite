@@ -2,15 +2,14 @@
     <div class="col-md-3">
         <div class="pa-sidebar well well-small">
             <ul class="nav nav-list">
-                <li ng-class="{ active: $state.includes('list') }"><a ui-sref="list">All Contacts</a></li>
+                <li ng-class="{ active: $state.includes('.list') }"><a ui-sref=".list">All Contacts</a></li>
                 <li class="nav-header">Top 2 Contacts</li>
 
                 <!-- This <li> will only add the 'active' class if 'contacts.detail' or its descendants are active
                      AND if it is the link for the active contact (aka contactId) -->
                 <li ng-repeat="contact in welcome.contacts | limitTo:2" ui-sref-active="active">
-                   item
                     <!-- Here's a ui-sref that is also providing necessary parameters -->
-                    <a ui-sref="welcome.detail({contactId:contact.id})">{{contact.name}}</a>
+                    <a ui-sref="state.welcome.detail({contactId:contact.id})">contact {{contact.name}}</a>
                 </li>
             </ul>
             <hr>

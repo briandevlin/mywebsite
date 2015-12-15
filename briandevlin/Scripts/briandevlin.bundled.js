@@ -1,7 +1,7 @@
 
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/app.core.module.js
-// Last updated: 12/13/2015 1:24:47 PM
+// Last updated: 12/13/2015 2:24:39 PM
 //
 (function () {
     'use strict';
@@ -18,7 +18,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/app.module.js
-// Last updated: 12/13/2015 1:24:47 PM
+// Last updated: 12/13/2015 2:24:39 PM
 //
 (function () {
     'use strict';
@@ -46,7 +46,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/app.config.js
-// Last updated: 12/13/2015 1:24:47 PM
+// Last updated: 12/13/2015 2:24:39 PM
 //
 (function () {
     'use strict';
@@ -114,7 +114,7 @@
                  $scope.things = ["A", "Set", "Of", "Things"];
              }]
          })
-        .state('welcome', {
+        .state('state.welcome', {
             data: {
                 customData1: "Hello",
                 customData2: "World!"
@@ -157,7 +157,7 @@
             controllerAs: 'welcome',
             controller: 'welcome-controller'
         })
-         .state('about', {
+         .state('state.about', {
              url: '/about',
 
              // Showing off how you could return a promise from templateProvider
@@ -175,7 +175,7 @@
                }]
          })
 
-          .state('about-me', {
+          .state('state.about-me', {
               url: '/about-me',
              
               template: 'About Me',
@@ -234,7 +234,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-module.js
-// Last updated: 12/13/2015 1:24:47 PM
+// Last updated: 12/13/2015 2:24:39 PM
 //
 (function () {
     'use strict';
@@ -246,7 +246,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/Welcome/welcome-module.js
-// Last updated: 12/13/2015 1:24:47 PM
+// Last updated: 12/13/2015 2:24:39 PM
 //
 (function () {
     'use strict';
@@ -264,24 +264,24 @@
         //////////////
         // Contacts //
         //////////////
-          .state('contacts', {
-              abstract: true,
-              parent: 'welcome',
-              // This abstract state will prepend '/contacts' onto the urls of all its children.
-              url: '/contacts',
+          //.state('contacts', {
+          //    abstract: true,
+          //    parent: 'welcome',
+          //    // This abstract state will prepend '/contacts' onto the urls of all its children.
+          //    url: '/contacts',
 
-              data:{
-                  // customData1 inherited from 'parent'
-                  // but we'll overwrite customData2
-                  customData2:  "UI-Router!"
-              },
-              template: '<h1>header title</h1>',
-              controller: ['$scope', 'resA',function ($scope, resA) {
-                  $scope.resA = resA.value;
-                  $scope.title = 'My Contacts';
-              }]
+          //    data:{
+          //        // customData1 inherited from 'parent'
+          //        // but we'll overwrite customData2
+          //        customData2:  "UI-Router!"
+          //    },
+          //    template: '<h1>header title</h1>',
+          //    controller: ['$scope', 'resA',function ($scope, resA) {
+          //        $scope.resA = resA.value;
+          //        $scope.title = 'My Contacts';
+          //    }]
                                                
-          })
+          //})
 
         /////////////////////
         // Contacts > List //
@@ -290,8 +290,8 @@
 
         // Using a '.' within a state name declares a child within a parent.
         // So you have a new state 'list' within the parent 'welcome' state.
-        .state('list', {
-            parent: 'welcome',
+        .state('state.welcome.list', {
+           // parent: 'welcome',
             // Using an empty url means that this child state will become active
             // when its parent's url is navigated to. Urls of child states are
             // automatically appended to the urls of their parent. So this state's
@@ -311,7 +311,7 @@
 
         // You can have unlimited children within a state. Here is a second child
         // state within the 'contacts' parent state.
-        .state('welcome.detail', {
+        .state('state.welcome.detail', {
 
             // Urls can have parameters. They can be specified like :param or {param}.
             // If {} is used, then you can also specify a regex pattern that the param
@@ -370,7 +370,7 @@
         //////////////////////////////
         // Contacts > Detail > Item //
         //////////////////////////////
-           .state('welcome.detail.item', {
+           .state('state.welcome.detail.item', {
 
                // So following what we've learned, this state's full url will end up being
                // '/contacts/{contactId}/item/:itemId'. We are using both types of parameters
@@ -438,7 +438,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-config.js
-// Last updated: 12/13/2015 1:24:47 PM
+// Last updated: 12/13/2015 2:24:39 PM
 //
 (function () {
     'use strict';
@@ -502,7 +502,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-controller.js
-// Last updated: 12/13/2015 1:24:47 PM
+// Last updated: 12/13/2015 2:24:39 PM
 //
 (function () {
     'use strict';
@@ -528,7 +528,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/Welcome/Welcome-controller.js
-// Last updated: 12/13/2015 1:24:47 PM
+// Last updated: 12/13/2015 2:24:39 PM
 //
 (function () {
     'use strict';

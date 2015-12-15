@@ -64,7 +64,7 @@
                  $scope.things = ["A", "Set", "Of", "Things"];
              }]
          })
-        .state('welcome', {
+        .state('state.welcome', {
             data: {
                 customData1: "Hello",
                 customData2: "World!"
@@ -107,7 +107,7 @@
             controllerAs: 'welcome',
             controller: 'welcome-controller'
         })
-         .state('about', {
+         .state('state.about', {
              url: '/about',
 
              // Showing off how you could return a promise from templateProvider
@@ -125,7 +125,7 @@
                }]
          })
 
-          .state('about-me', {
+          .state('state.about-me', {
               url: '/about-me',
              
               template: 'About Me',

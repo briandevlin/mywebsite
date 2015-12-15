@@ -12,10 +12,10 @@
             <ul class="nav navbar-nav">
                 <li ui-sref-active="active"><a ui-sref="state.state1">State 1</a></li>
                 <li ui-sref-active="active"><a ui-sref="state.state2">State 2</a></li>
-                <li ui-sref-active="active"><a ui-sref="welcome">Welcome State</a></li>
+                <li ui-sref-active="active"><a ui-sref="state.welcome">Welcome State</a></li>
                 <li ui-sref-active="active"><a ui-sref="error">Error State</a></li>
-                <li ui-sref-active="active"><a ui-sref="about">About State</a></li>
-                <li><a ui-sref="about-me" ng-class="{ active: $state.is('about-me') }">About Me</a></li>
+                <li ui-sref-active="active"><a ui-sref="state.about">About State</a></li>
+                <li><a ui-sref="state.about-me" ng-class="{ active: $state.is('state.about-me') }">About Me</a></li>
             </ul>
             <p ui-view="hint" class="navbar-text pull-right"></p>
         </div>

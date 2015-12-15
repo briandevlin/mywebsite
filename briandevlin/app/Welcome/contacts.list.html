@@ -1,6 +1,6 @@
-﻿<h2>All Contacts</h2>
+﻿<h2>All Contacts Brian</h2>
 <ul>
     <li ng-repeat="contact in welcome.contacts">
-        <a ui-sref="welcome.detail({contactId:contact.id})">{{contact.name}}{{resA}}</a>
+        <a ui-sref="state.welcome.detail({contactId:contact.id})">item [{{$index}}]{{contact.name}}</a>
     </li>
 </ul>   
