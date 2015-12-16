@@ -1,7 +1,24 @@
-﻿
-@{
-    ViewBag.Title = "index";
+﻿@{
+    ViewBag.Title = "BRIANDEVLIN";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>index</h2>
+<div class="container-fluid">
+    <div class="row topBuffer">
+        <div class="col-md-12">
+            <!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
+            <!-- Angular UI Router Directive for template insertion -->
+            <main class="well" ui-view></main>
+        </div>
+    </div>
+    <hr>
+<pre>
+      <!-- Here's some values to keep an eye on in the sample in order to understand $state and $stateParams -->
+      $state = {{$state.current.name}}
+      $stateParams = {{$stateParams}}
+      $state full url = {{ $state.$current.url.source }}
+      <!-- $state.$current is not a public api, we are using it to
+           display the full url for learning purposes-->
+    </pre>
+</div>
 
