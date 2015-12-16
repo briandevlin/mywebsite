@@ -26,7 +26,7 @@
                 // You can simply add it inline here.
                 template: '<ui-view/>'
             })
-         .state('state.state1', {
+         .state('state.state1', {            
              url: "/state1",
              data: {
                  customDataHello: "Hello",
@@ -39,18 +39,11 @@
              },
              templateUrl: "app/route1/route1.html"
          })
-        .state('state.state1.alist', {
-           // parent: 'state1',
+        .state('state.state1.alist', {        
             url: "/alist",
             templateUrl: "app/route1/route1.list.html",
-            controllerAs: 'vm',
-            controller: 'route1Controller'
-            //controller: ['resource1', function (resource1) {
-            //    var vm = this;
-            //    vm.resource = resource1.value;
-
-            //    vm.items = ["A", "List", "Of", "Items"];
-            //}]
+            controllerAs: 'route1Crtl',
+            controller: 'route1Controller'          
         })
 
 
