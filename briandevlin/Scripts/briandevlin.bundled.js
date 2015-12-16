@@ -1,7 +1,7 @@
 
 //*********************************************************
-// File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/app.core.module.js
-// Last updated: 12/13/2015 2:24:39 PM
+// File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/app.core.module.js
+// Last updated: 12/16/2015 1:25:55 PM
 //
 (function () {
     'use strict';
@@ -17,8 +17,8 @@
         ]);
 })();
 //*********************************************************
-// File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/app.module.js
-// Last updated: 12/13/2015 2:24:39 PM
+// File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/app.module.js
+// Last updated: 12/16/2015 1:25:55 PM
 //
 (function () {
     'use strict';
@@ -45,8 +45,8 @@
         ]);
 })();
 //*********************************************************
-// File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/app.config.js
-// Last updated: 12/13/2015 2:24:39 PM
+// File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/app.config.js
+// Last updated: 12/16/2015 1:25:55 PM
 //
 (function () {
     'use strict';
@@ -233,8 +233,8 @@
     //}
 })();
 //*********************************************************
-// File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-module.js
-// Last updated: 12/13/2015 2:24:39 PM
+// File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-module.js
+// Last updated: 12/16/2015 1:25:55 PM
 //
 (function () {
     'use strict';
@@ -245,8 +245,8 @@
         ]);
 })();
 //*********************************************************
-// File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/Welcome/welcome-module.js
-// Last updated: 12/13/2015 2:24:39 PM
+// File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/Welcome/welcome-module.js
+// Last updated: 12/16/2015 1:25:55 PM
 //
 (function () {
     'use strict';
@@ -340,10 +340,13 @@
                 // So this one is targeting the unnamed view within the parent state's template.
                 '': {
                     templateUrl: 'app/welcome/contacts.detail.html',
+                    controllerAs: 'welcomeDetail',
                     controller: ['$scope', '$stateParams',
-                function ($scope, $stateParams) {
-                    $scope.contact = $scope.contacts[ $stateParams.contactId - 1];
-                }]
+                            function ($scope, $stateParams) {
+                                var vm = this;
+                                vm.contactId = $stateParams.contactId - 1;
+                                vm.contact = $scope.$parent.welcome.contacts[ $stateParams.contactId - 1];
+                            }]
                 },
 
                 // This one is targeting the ui-view="hint" within the unnamed root, aka index.html.
@@ -383,11 +386,13 @@
                    // We could instead just set templateUrl and controller outside of the view obj.
                    '': {
                        templateUrl: 'app/welcome/contacts.detail.item.html',
+                       controllerAs: 'welcomeItem',
                        controller: ['$scope', '$stateParams', '$state',
                          function ($scope, $stateParams, $state) {
-                             $scope.item = $scope.contact.items[$stateParams.itemId - 1];
+                             var vm = this;
+                             vm.item = $scope.$parent.welcomeDetail.contact.items[$stateParams.itemId - 1];
 
-                             $scope.edit = function () {
+                             vm.edit = function () {
                                  // Here we show off go's ability to navigate to a relative state. Using '^' to go upwards
                                  // and '.' to go down, you can navigate to any relative state (ancestor or descendant).
                                  // Here we are going down to the child state 'edit' (full name of 'contacts.detail.item.edit')
@@ -409,18 +414,20 @@
         // Notice that this state has no 'url'. States do not require a url. You can use them
         // simply to organize your application into "places" where each "place" can configure
         // only what it needs. The only way to get to this state is via $state.go (or transitionTo)
-        .state('welcome.detail.item.edit', {
+        .state('state.welcome.detail.item.edit', {
             views: {
 
-                // This is targeting the unnamed view within the 'contacts.detail' state
-                // essentially swapping out the template that 'contacts.detail.item' had
+                // This is targeting the unnamed view within the 'welcome.detail' state
+                // essentially swapping out the template that 'welcome.detail.item' had
                 // inserted with this state's template.
-                '@welcome.detail': {
+                '@state.welcome.detail': {
                     templateUrl: 'app/welcome/contacts.detail.item.edit.html',
+                    controllerAs: 'welcomeItemEdit',
                     controller: ['$scope', '$stateParams', '$state',
                       function ($scope, $stateParams, $state) {
-                          $scope.item = $scope.contact.items[$stateParams.itemId - 1];
-                          $scope.done = function () {
+                          var vm = this;
+                          vm.item = $scope.$parent.welcomeDetail.contact.items[$stateParams.itemId - 1];
+                          vm.done = function () {
                               // Go back up. '^' means up one. '^.^' would be up twice, to the grandparent.
                               $state.go('^', $stateParams);
                           };
@@ -437,8 +444,8 @@
    
 })();
 //*********************************************************
-// File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-config.js
-// Last updated: 12/13/2015 2:24:39 PM
+// File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-config.js
+// Last updated: 12/16/2015 1:25:55 PM
 //
 (function () {
     'use strict';
@@ -501,8 +508,8 @@
 
 })();
 //*********************************************************
-// File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-controller.js
-// Last updated: 12/13/2015 2:24:39 PM
+// File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-controller.js
+// Last updated: 12/16/2015 1:25:55 PM
 //
 (function () {
     'use strict';
@@ -527,19 +534,19 @@
     }
 })();
 //*********************************************************
-// File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/Welcome/Welcome-controller.js
-// Last updated: 12/13/2015 2:24:39 PM
+// File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/Welcome/Welcome-controller.js
+// Last updated: 12/16/2015 1:25:55 PM
 //
 (function () {
     'use strict';
 
     angular
         .module('app.welcome')
-        .controller('welcome-controller', welcomeController);
+        .controller('welcome-controller', WelcomeController);
 
-    welcomeController.$inject = ["$rootScope", "$scope", "$state", "resA", "greeting"/*, "promiseObj2"*/];
+    WelcomeController.$inject = ["$rootScope", "$scope", "$state", "resA", "greeting"/*, "promiseObj2"*/];
 
-    function welcomeController($rootScope, $scope, $state, resA, greeting /*, promiseObj2*/)
+    function WelcomeController($rootScope, $scope, $state, resA, greeting /*, promiseObj2*/)
     {
         var vm = this;
 

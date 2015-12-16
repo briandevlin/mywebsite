@@ -3,11 +3,11 @@
 
     angular
         .module('app.welcome')
-        .controller('welcome-controller', welcomeController);
+        .controller('welcome-controller', WelcomeController);
 
-    welcomeController.$inject = ["$rootScope", "$scope", "$state", "resA", "greeting"/*, "promiseObj2"*/];
+    WelcomeController.$inject = ["$rootScope", "$scope", "$state", "resA", "greeting"/*, "promiseObj2"*/];
 
-    function welcomeController($rootScope, $scope, $state, resA, greeting /*, promiseObj2*/)
+    function WelcomeController($rootScope, $scope, $state, resA, greeting /*, promiseObj2*/)
     {
         var vm = this;
 
