@@ -11,28 +11,7 @@
         console.info('in app.welcome.config');
 
         $stateProvider
-        //////////////
-        // Contacts //
-        //////////////
-          //.state('contacts', {
-          //    abstract: true,
-          //    parent: 'welcome',
-          //    // This abstract state will prepend '/contacts' onto the urls of all its children.
-          //    url: '/contacts',
-
-          //    data:{
-          //        // customData1 inherited from 'parent'
-          //        // but we'll overwrite customData2
-          //        customData2:  "UI-Router!"
-          //    },
-          //    template: '<h1>header title</h1>',
-          //    controller: ['$scope', 'resA',function ($scope, resA) {
-          //        $scope.resA = resA.value;
-          //        $scope.title = 'My Contacts';
-          //    }]
-                                               
-          //})
-
+      
         /////////////////////
         // Contacts > List //
         /////////////////////

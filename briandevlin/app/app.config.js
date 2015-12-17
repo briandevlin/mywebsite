@@ -13,9 +13,9 @@
                 // to active whenever 'contacts.list' or one of its decendents is active.
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
-                $rootScope.$on('$stateChangeStart', function (event, toState) {
+                $rootScope.$on('$stateChangeStart', function (event, toState, fromState, fromParams) {
                     // var greeting = toState.data.customdata1 + " and " + toState.data.customdata2;
-                    console.log('$stateChangeStart');
+                    console.log('$stateChangeStart name: ' + toState.name + ' customData:' + toState.data.customDataHello);
 
                     // would print "hello world!" when 'parent' is activated
                     // would print "hello ui-router!" when 'parent.child' is activated
