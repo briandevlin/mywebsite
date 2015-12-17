@@ -1,7 +1,7 @@
 
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/app.core.module.js
-// Last updated: 12/16/2015 5:36:03 PM
+// Last updated: 12/16/2015 5:56:50 PM
 //
 (function () {
     'use strict';
@@ -18,7 +18,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/app.module.js
-// Last updated: 12/16/2015 5:36:03 PM
+// Last updated: 12/16/2015 5:56:50 PM
 //
 (function () {
     'use strict';
@@ -46,7 +46,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/app.config.js
-// Last updated: 12/16/2015 5:36:03 PM
+// Last updated: 12/16/2015 5:56:50 PM
 //
 (function () {
     'use strict';
@@ -234,7 +234,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-module.js
-// Last updated: 12/16/2015 5:36:03 PM
+// Last updated: 12/16/2015 5:56:50 PM
 //
 (function () {
     'use strict';
@@ -246,7 +246,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/Welcome/welcome-module.js
-// Last updated: 12/16/2015 5:36:03 PM
+// Last updated: 12/16/2015 5:56:50 PM
 //
 (function () {
     'use strict';
@@ -445,7 +445,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-config.js
-// Last updated: 12/16/2015 5:36:03 PM
+// Last updated: 12/16/2015 5:56:50 PM
 //
 (function () {
     'use strict';
@@ -502,17 +502,17 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-controller.js
-// Last updated: 12/16/2015 5:36:03 PM
+// Last updated: 12/16/2015 5:56:50 PM
 //
 (function () {
     'use strict';
 
     angular
         .module('app.route1')
-        .controller('route1Controller', route1Controller);
+        .controller('route1Controller', Route1Controller);
 
-    route1Controller.$inject = ["$state", 'resource1'];
-    function route1Controller($state, resource1) {
+    Route1Controller.$inject = ["$state", 'resource1'];
+    function Route1Controller($state, resource1) {
         var vm = this;
       
         InitailizeController();
@@ -528,7 +528,7 @@
 })();
 //*********************************************************
 // File: c:\users\brian\documents\visual studio 2013\Projects\briandevlin\briandevlin\app/Welcome/Welcome-controller.js
-// Last updated: 12/16/2015 5:36:03 PM
+// Last updated: 12/16/2015 5:56:50 PM
 //
 (function () {
     'use strict';

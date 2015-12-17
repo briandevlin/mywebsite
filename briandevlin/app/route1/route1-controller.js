@@ -3,10 +3,10 @@
 
     angular
         .module('app.route1')
-        .controller('route1Controller', route1Controller);
+        .controller('route1Controller', Route1Controller);
 
-    route1Controller.$inject = ["$state", 'resource1'];
-    function route1Controller($state, resource1) {
+    Route1Controller.$inject = ["$state", 'resource1'];
+    function Route1Controller($state, resource1) {
         var vm = this;
       
         InitailizeController();
