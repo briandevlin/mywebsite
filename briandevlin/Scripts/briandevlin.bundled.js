@@ -1,7 +1,7 @@
 
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/app.core.module.js
-// Last updated: 12/16/2015 1:25:55 PM
+// Last updated: 12/16/2015 1:35:48 PM
 //
 (function () {
     'use strict';
@@ -18,7 +18,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/app.module.js
-// Last updated: 12/16/2015 1:25:55 PM
+// Last updated: 12/16/2015 1:35:48 PM
 //
 (function () {
     'use strict';
@@ -46,7 +46,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/app.config.js
-// Last updated: 12/16/2015 1:25:55 PM
+// Last updated: 12/16/2015 1:35:48 PM
 //
 (function () {
     'use strict';
@@ -234,7 +234,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-module.js
-// Last updated: 12/16/2015 1:25:55 PM
+// Last updated: 12/16/2015 1:35:48 PM
 //
 (function () {
     'use strict';
@@ -246,7 +246,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/Welcome/welcome-module.js
-// Last updated: 12/16/2015 1:25:55 PM
+// Last updated: 12/16/2015 1:35:48 PM
 //
 (function () {
     'use strict';
@@ -445,7 +445,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-config.js
-// Last updated: 12/16/2015 1:25:55 PM
+// Last updated: 12/16/2015 1:35:48 PM
 //
 (function () {
     'use strict';
@@ -509,7 +509,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-controller.js
-// Last updated: 12/16/2015 1:25:55 PM
+// Last updated: 12/16/2015 1:35:48 PM
 //
 (function () {
     'use strict';
@@ -534,8 +534,21 @@
     }
 })();
 //*********************************************************
+// File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-factory.js
+// Last updated: 12/16/2015 1:35:48 PM
+//
+(function () {
+    'use strict';
+    angular
+        .module('app')
+        .factory('route1Factory', route1Factory);
+
+    function route1Factory() { }
+
+})();
+//*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/Welcome/Welcome-controller.js
-// Last updated: 12/16/2015 1:25:55 PM
+// Last updated: 12/16/2015 1:35:48 PM
 //
 (function () {
     'use strict';

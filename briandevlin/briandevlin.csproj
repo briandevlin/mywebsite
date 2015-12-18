@@ -106,6 +106,7 @@
     <Content Include="app\app.config.js" />
     <Content Include="app\app.core.module.js" />
     <Content Include="app\app.module.js" />
+    <Content Include="app\route1\route1-factory.js" />
     <Content Include="app\route1\route1-module.js" />
     <Content Include="app\route1\route1-config.js" />
     <Content Include="app\route1\route1-controller.js" />
