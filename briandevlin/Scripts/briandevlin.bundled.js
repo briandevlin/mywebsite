@@ -1,7 +1,7 @@
 
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/app.core.module.js
-// Last updated: 12/16/2015 1:35:48 PM
+// Last updated: 12/18/2015 8:20:23 AM
 //
 (function () {
     'use strict';
@@ -18,7 +18,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/app.module.js
-// Last updated: 12/16/2015 1:35:48 PM
+// Last updated: 12/18/2015 8:20:23 AM
 //
 (function () {
     'use strict';
@@ -46,7 +46,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/app.config.js
-// Last updated: 12/16/2015 1:35:48 PM
+// Last updated: 12/18/2015 8:20:23 AM
 //
 (function () {
     'use strict';
@@ -63,9 +63,9 @@
                 // to active whenever 'contacts.list' or one of its decendents is active.
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
-                $rootScope.$on('$stateChangeStart', function (event, toState) {
+                $rootScope.$on('$stateChangeStart', function (event, toState, fromState, fromParams) {
                     // var greeting = toState.data.customdata1 + " and " + toState.data.customdata2;
-                    console.log('$stateChangeStart');
+                    console.log('$stateChangeStart name: ' + toState.name + ' customData:' + toState.data.customDataHello);
 
                     // would print "hello world!" when 'parent' is activated
                     // would print "hello ui-router!" when 'parent.child' is activated
@@ -234,7 +234,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-module.js
-// Last updated: 12/16/2015 1:35:48 PM
+// Last updated: 12/18/2015 8:20:23 AM
 //
 (function () {
     'use strict';
@@ -246,7 +246,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/Welcome/welcome-module.js
-// Last updated: 12/16/2015 1:35:48 PM
+// Last updated: 12/18/2015 8:20:23 AM
 //
 (function () {
     'use strict';
@@ -261,28 +261,7 @@
         console.info('in app.welcome.config');
 
         $stateProvider
-        //////////////
-        // Contacts //
-        //////////////
-          //.state('contacts', {
-          //    abstract: true,
-          //    parent: 'welcome',
-          //    // This abstract state will prepend '/contacts' onto the urls of all its children.
-          //    url: '/contacts',
-
-          //    data:{
-          //        // customData1 inherited from 'parent'
-          //        // but we'll overwrite customData2
-          //        customData2:  "UI-Router!"
-          //    },
-          //    template: '<h1>header title</h1>',
-          //    controller: ['$scope', 'resA',function ($scope, resA) {
-          //        $scope.resA = resA.value;
-          //        $scope.title = 'My Contacts';
-          //    }]
-                                               
-          //})
-
+      
         /////////////////////
         // Contacts > List //
         /////////////////////
@@ -445,7 +424,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-config.js
-// Last updated: 12/16/2015 1:35:48 PM
+// Last updated: 12/18/2015 8:20:23 AM
 //
 (function () {
     'use strict';
@@ -470,6 +449,12 @@
             .state('state', {
                 abstract: true,
                 url: '/state',
+                onEnter: function () {
+                    console.log('onEnter abstract')
+                },
+                onExit: function () {
+                    console.log('onExit  abstract')
+                },
 
                 // Note: abstract still needs a ui-view for its children to populate.
                 // You can simply add it inline here.
@@ -483,24 +468,52 @@
              },
              resolve: {
                  resource1: function () {
-                     return { 'value': 'resource1' };
+                     return { 'value': 'Resolved resource1' };
                  }
              },
-             templateUrl: "app/route1/route1.html"
+
+             onEnter: function (resource1) {
+                 console.log('onEnter state.state1 ' + resource1.value)
+             },
+             onExit: function (resource1) {
+                 console.log('onExit  state.state1 ' + resource1.value)
+             },
+             templateUrl: "app/route1/route1.html",
+             controllerAs: 'route1Crtl',
+             controller: 'route1Controller'
          })
         .state('state.state1.alist', {
-           // parent: 'state1',
             url: "/alist",
+            onEnter: function (resource1) {
+                console.log('onEnter state.state1.alist ' + resource1.value)
+            },
+            onExit: function (resource1) {
+                console.log('onExit state.state1.alist ' + resource1.value)
+            },
             templateUrl: "app/route1/route1.list.html",
-            controllerAs: 'vm',
-            controller: 'route1Controller'
-            //controller: ['resource1', function (resource1) {
-            //    var vm = this;
-            //    vm.resource = resource1.value;
-
-            //    vm.items = ["A", "List", "Of", "Items"];
-            //}]
+            //controllerAs: 'route1Crtl',
+            //controller: 'route1Controller'
         })
+           .state('state.state1.detail', {
+               url: "/detail",
+               onEnter: function (resource1) {
+                   console.log('onEnter state.state1.detail ' + resource1.value)
+               },
+               onExit: function (resource1) {
+                   console.log('onExit state.state1.detail ' + resource1.value)
+               },
+               templateUrl: "app/route1/route1-list-detail.html",
+               //controllerAs: 'route1Crtl',
+               //controller: 'route1Controller'
+               controllerAs: 'routeDetailCrtl',
+               controller: ['$scope', '$stateParams',
+                       function ($scope, $stateParams) {
+                           var vm = this;
+                          // vm.contactId = $stateParams.item;
+                           vm.contactId = '111';
+                           //vm.contact = $scope.$parent.welcome.contacts[$stateParams.contactId - 1];
+                       }]
+           })
 
 
     }
@@ -509,23 +522,30 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-controller.js
-// Last updated: 12/16/2015 1:35:48 PM
+// Last updated: 12/18/2015 8:20:23 AM
 //
 (function () {
     'use strict';
 
     angular
         .module('app.route1')
-        .controller('route1Controller', route1Controller);
+        .controller('route1Controller', Route1Controller);
 
-    route1Controller.$inject = ["$state", 'resource1'];
-    function route1Controller($state, resource1) {
+    Route1Controller.$inject = ["$state", 'resource1', '$stateParams'];
+    function Route1Controller($state, resource1, $stateParams) {
         var vm = this;
+
+        console.log('in Route1Controller');
+
+        console.log($state.current.data.customDataHello)
+        console.log($state.current.data.customDataWorld)
       
         InitailizeController();
 
         function InitailizeController() {
-           
+
+           // vm.contactId = $stateParams.contactId;
+            vm.data = $state.current.data;
             vm.resource = resource1.value;
 
             vm.items = ["A", "List", "Of", "Items"];
@@ -535,7 +555,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-factory.js
-// Last updated: 12/16/2015 1:35:48 PM
+// Last updated: 12/18/2015 8:20:23 AM
 //
 (function () {
     'use strict';
@@ -548,7 +568,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/Welcome/Welcome-controller.js
-// Last updated: 12/16/2015 1:35:48 PM
+// Last updated: 12/18/2015 8:20:23 AM
 //
 (function () {
     'use strict';

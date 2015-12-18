@@ -1,12 +1,17 @@
 ﻿<h3>List of State 1 Items</h3>
-<div>{{vm.resource}}</div>
+<div>{{route1Crtl.resource}}</div>
+<div>{{route1Crtl.data.customDataHello}}</div>
 <div>
     Search
-    <input ng-model="vm.searchName">
+    <input ng-model="route1Crtl.searchName">
 </div>
 <div>
     <ul>
-        <li ng-repeat="item in vm.items  | filter: vm.searchName | orderBy: $index as filtered_result  track by $index">[{{$index}}] {{item}}</li>
+        <li ng-repeat="item in route1Crtl.items  | filter: route1Crtl.searchName | orderBy: $index as filtered_result  track by $index">
+           
+            <a ui-sref="state.state1.detail({item:item})">  [{{$index}}] {{item}}</a>
+
+        </li>
     </ul>
 </div>
 
