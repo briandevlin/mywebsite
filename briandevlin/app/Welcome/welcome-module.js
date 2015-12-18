@@ -5,13 +5,65 @@
         .module('app.welcome', [
             'ui.router'
         ])
+    .run(
+          ['$rootScope', '$state', '$stateParams',
+            function ($rootScope, $state, $stateParams) {
+                console.log('module: app.welcome running ');
+
+            }
+          ]
+        )
     .config(
     ['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
         console.info('in app.welcome.config');
 
         $stateProvider
-      
+
+                   .state('state.welcome', {
+                       data: {
+                           customData1: "Hello",
+                           customData2: "World!"
+                       },
+                       //onEnter: function (resA) {
+                       //    console.info('onEnter: ' + resA);
+                       //},
+                       //onExit: function (resA) {
+                       //    console.info('onExit: ' + resA);
+                       //},
+                       resolve: {
+                           // Example using function with simple return value.
+                           // Since it's not a promise, it resolves immediately.               
+                           resA: function () {
+                               return { 'value': ' Inherited value' };
+                           },
+                           //Example showing returning of custom made promise
+
+                           greeting: ['$q', '$timeout', function ($q, $timeout) {
+                               var deferred = $q.defer();
+                               $timeout(function () {
+                                   deferred.resolve('Hello!');
+                               }, 1000);
+                               return deferred.promise;
+                           }],
+                           // Another promise example. If you need to do some 
+                           // processing of the result, use .then, and your 
+                           // promise is chained in for free. This is another
+                           // typical use case of resolve.
+                           //promiseObj2: function ($http) {
+                           //    return $http({ method: 'GET', url: '#/route1' })
+                           //       .then(function (data) {
+                           //           //return doSomeStuffFirst(data);
+                           //           return data;
+                           //       });
+                           //}
+                       },
+                       url: "/welcome",
+                       templateUrl: "app/welcome/welcome.html",
+                       controllerAs: 'welcome',
+                       controller: 'welcome-controller'
+                   })
+
         /////////////////////
         // Contacts > List //
         /////////////////////
@@ -20,7 +72,7 @@
         // Using a '.' within a state name declares a child within a parent.
         // So you have a new state 'list' within the parent 'welcome' state.
         .state('state.welcome.list', {
-           // parent: 'welcome',
+            // parent: 'welcome',
             // Using an empty url means that this child state will become active
             // when its parent's url is navigated to. Urls of child states are
             // automatically appended to the urls of their parent. So this state's
@@ -74,7 +126,7 @@
                             function ($scope, $stateParams) {
                                 var vm = this;
                                 vm.contactId = $stateParams.contactId - 1;
-                                vm.contact = $scope.$parent.welcome.contacts[ $stateParams.contactId - 1];
+                                vm.contact = $scope.$parent.welcome.contacts[$stateParams.contactId - 1];
                             }]
                 },
 
@@ -168,7 +220,7 @@
 
 
     }
-  ]
+    ]
 );
-   
+
 })();

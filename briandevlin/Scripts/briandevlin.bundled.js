@@ -1,7 +1,7 @@
 
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/app.core.module.js
-// Last updated: 12/18/2015 8:20:23 AM
+// Last updated: 12/18/2015 10:47:18 AM
 //
 (function () {
     'use strict';
@@ -18,7 +18,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/app.module.js
-// Last updated: 12/18/2015 8:20:23 AM
+// Last updated: 12/18/2015 10:47:18 AM
 //
 (function () {
     'use strict';
@@ -46,7 +46,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/app.config.js
-// Last updated: 12/18/2015 8:20:23 AM
+// Last updated: 12/18/2015 10:47:18 AM
 //
 (function () {
     'use strict';
@@ -56,6 +56,8 @@
         .run(
           ['$rootScope', '$state', '$stateParams',
             function ($rootScope, $state, $stateParams) {
+
+                console.log('module: app running ');
 
                 // It's very handy to add references to $state and $stateParams to the $rootScope
                 // so that you can access them from any scope within your applications.For example,
@@ -70,6 +72,12 @@
                     // would print "hello world!" when 'parent' is activated
                     // would print "hello ui-router!" when 'parent.child' is activated
                 });
+
+                $rootScope.$on('$stateChangeSuccess',
+                    function (event, toState, toParams, fromState, fromParams) {
+                        console.log('$stateChangeSuccess');
+                    });
+
                 $rootScope.$on('$stateNotFound',
                     function (event, unfoundState, fromState, fromParams) {
                         console.log('$stateNotFound ');
@@ -82,7 +90,7 @@
                         // Access to all the view config properties.
                         // and one special property 'targetView'
                         // viewConfig.targetView 
-                        console.log('$viewContentLoading ' + viewConfig);
+                        console.log('$viewContentLoading ' + viewConfig.targetView);
                     });
                
             }
@@ -102,7 +110,7 @@
         // of the parent state template. Since this is a top level state, 
         // its parent state template is index.cshtml.
         $stateProvider
-       
+       // simple child state loading a partial
          .state('state.state2', {
              url: "/state2",
              templateUrl: "app/welcome/route2.html"
@@ -114,49 +122,7 @@
                  $scope.things = ["A", "Set", "Of", "Things"];
              }]
          })
-        .state('state.welcome', {
-            data: {
-                customData1: "Hello",
-                customData2: "World!"
-            },
-            //onEnter: function (resA) {
-            //    console.info('onEnter: ' + resA);
-            //},
-            //onExit: function (resA) {
-            //    console.info('onExit: ' + resA);
-            //},
-            resolve: {
-                // Example using function with simple return value.
-                // Since it's not a promise, it resolves immediately.               
-                resA: function () {
-                    return { 'value': ' Inherited value' };
-                },
-                //Example showing returning of custom made promise
-                
-                greeting: ['$q', '$timeout',function ($q, $timeout) {
-                    var deferred = $q.defer();
-                    $timeout(function () {
-                        deferred.resolve('Hello!');
-                    }, 1000);
-                    return deferred.promise;
-                }],
-                // Another promise example. If you need to do some 
-                // processing of the result, use .then, and your 
-                // promise is chained in for free. This is another
-                // typical use case of resolve.
-                //promiseObj2: function ($http) {
-                //    return $http({ method: 'GET', url: '#/route1' })
-                //       .then(function (data) {
-                //           //return doSomeStuffFirst(data);
-                //           return data;
-                //       });
-                //}
-            },
-            url: "/welcome",
-            templateUrl: "app/welcome/welcome.html",
-            controllerAs: 'welcome',
-            controller: 'welcome-controller'
-        })
+ 
          .state('state.about', {
              url: '/about',
 
@@ -178,7 +144,7 @@
           .state('state.about-me', {
               url: '/about-me',
              
-              template: 'About Me',
+              template: '<body><ui-view><i>Some content will load here!</i> </ui-view></body>',
               data: {
                   auth: true
               }
@@ -188,7 +154,10 @@
         // Redirects and Otherwise //
         /////////////////////////////
 
-        $urlRouterProvider.otherwise("/state/state1")
+        $urlRouterProvider
+            .when('/state/w?id', '/state/welcome/:id')
+            .when('state/user/:id', '/state/welcome/:id')
+            .otherwise("/state/state1")
 
     }
 
@@ -226,15 +195,11 @@
         }];
 
         $httpProvider.responseInterceptors.push(httpInterceptor);
-    }
-
-    //function WowJSAnimations() {
-    //    new WOW().init();
-    //}
+    }   
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-module.js
-// Last updated: 12/18/2015 8:20:23 AM
+// Last updated: 12/18/2015 10:47:18 AM
 //
 (function () {
     'use strict';
@@ -246,7 +211,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/Welcome/welcome-module.js
-// Last updated: 12/18/2015 8:20:23 AM
+// Last updated: 12/18/2015 10:47:18 AM
 //
 (function () {
     'use strict';
@@ -255,13 +220,65 @@
         .module('app.welcome', [
             'ui.router'
         ])
+    .run(
+          ['$rootScope', '$state', '$stateParams',
+            function ($rootScope, $state, $stateParams) {
+                console.log('module: app.welcome running ');
+
+            }
+          ]
+        )
     .config(
     ['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
         console.info('in app.welcome.config');
 
         $stateProvider
-      
+
+                   .state('state.welcome', {
+                       data: {
+                           customData1: "Hello",
+                           customData2: "World!"
+                       },
+                       //onEnter: function (resA) {
+                       //    console.info('onEnter: ' + resA);
+                       //},
+                       //onExit: function (resA) {
+                       //    console.info('onExit: ' + resA);
+                       //},
+                       resolve: {
+                           // Example using function with simple return value.
+                           // Since it's not a promise, it resolves immediately.               
+                           resA: function () {
+                               return { 'value': ' Inherited value' };
+                           },
+                           //Example showing returning of custom made promise
+
+                           greeting: ['$q', '$timeout', function ($q, $timeout) {
+                               var deferred = $q.defer();
+                               $timeout(function () {
+                                   deferred.resolve('Hello!');
+                               }, 1000);
+                               return deferred.promise;
+                           }],
+                           // Another promise example. If you need to do some 
+                           // processing of the result, use .then, and your 
+                           // promise is chained in for free. This is another
+                           // typical use case of resolve.
+                           //promiseObj2: function ($http) {
+                           //    return $http({ method: 'GET', url: '#/route1' })
+                           //       .then(function (data) {
+                           //           //return doSomeStuffFirst(data);
+                           //           return data;
+                           //       });
+                           //}
+                       },
+                       url: "/welcome",
+                       templateUrl: "app/welcome/welcome.html",
+                       controllerAs: 'welcome',
+                       controller: 'welcome-controller'
+                   })
+
         /////////////////////
         // Contacts > List //
         /////////////////////
@@ -270,7 +287,7 @@
         // Using a '.' within a state name declares a child within a parent.
         // So you have a new state 'list' within the parent 'welcome' state.
         .state('state.welcome.list', {
-           // parent: 'welcome',
+            // parent: 'welcome',
             // Using an empty url means that this child state will become active
             // when its parent's url is navigated to. Urls of child states are
             // automatically appended to the urls of their parent. So this state's
@@ -324,7 +341,7 @@
                             function ($scope, $stateParams) {
                                 var vm = this;
                                 vm.contactId = $stateParams.contactId - 1;
-                                vm.contact = $scope.$parent.welcome.contacts[ $stateParams.contactId - 1];
+                                vm.contact = $scope.$parent.welcome.contacts[$stateParams.contactId - 1];
                             }]
                 },
 
@@ -418,13 +435,13 @@
 
 
     }
-  ]
+    ]
 );
-   
+
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-config.js
-// Last updated: 12/18/2015 8:20:23 AM
+// Last updated: 12/18/2015 10:47:18 AM
 //
 (function () {
     'use strict';
@@ -434,7 +451,7 @@
         .run(
           ['$rootScope', '$state', '$stateParams',
             function ($rootScope, $state, $stateParams) {
-
+                console.log('module: app.route1 running ');
 
             }
           ]
@@ -462,16 +479,19 @@
             })
          .state('state.state1', {
              url: "/state1",
+             //You can attach custom data to the state object and retrieve using: $state.current.data.customDataHello
              data: {
                  customDataHello: "Hello",
                  customDataWorld: "World!"
              },
+             //You can use resolve to provide your controller with content or data that is custom to the state. 
+            // resolve is an optional map of dependencies which should be injected into the controller.
              resolve: {
                  resource1: function () {
                      return { 'value': 'Resolved resource1' };
                  }
              },
-
+             // The callbacks also have access to all the resolved dependencies.
              onEnter: function (resource1) {
                  console.log('onEnter state.state1 ' + resource1.value)
              },
@@ -495,7 +515,7 @@
             //controller: 'route1Controller'
         })
            .state('state.state1.detail', {
-               url: "/detail",
+               url: "/detail/:item",
                onEnter: function (resource1) {
                    console.log('onEnter state.state1.detail ' + resource1.value)
                },
@@ -509,8 +529,8 @@
                controller: ['$scope', '$stateParams',
                        function ($scope, $stateParams) {
                            var vm = this;
-                          // vm.contactId = $stateParams.item;
-                           vm.contactId = '111';
+                            vm.contactId = $stateParams.item;
+                           //vm.contactId = '111';
                            //vm.contact = $scope.$parent.welcome.contacts[$stateParams.contactId - 1];
                        }]
            })
@@ -522,7 +542,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-controller.js
-// Last updated: 12/18/2015 8:20:23 AM
+// Last updated: 12/18/2015 10:47:18 AM
 //
 (function () {
     'use strict';
@@ -555,7 +575,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/route1/route1-factory.js
-// Last updated: 12/18/2015 8:20:23 AM
+// Last updated: 12/18/2015 10:47:18 AM
 //
 (function () {
     'use strict';
@@ -568,7 +588,7 @@
 })();
 //*********************************************************
 // File: C:\Users\bdevlin\Documents\Visual Studio 2013\Projects\briandevlin\briandevlin\app/Welcome/Welcome-controller.js
-// Last updated: 12/18/2015 8:20:23 AM
+// Last updated: 12/18/2015 10:47:18 AM
 //
 (function () {
     'use strict';

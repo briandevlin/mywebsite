@@ -6,7 +6,7 @@
         .run(
           ['$rootScope', '$state', '$stateParams',
             function ($rootScope, $state, $stateParams) {
-
+                console.log('module: app.route1 running ');
 
             }
           ]
@@ -34,16 +34,19 @@
             })
          .state('state.state1', {
              url: "/state1",
+             //You can attach custom data to the state object and retrieve using: $state.current.data.customDataHello
              data: {
                  customDataHello: "Hello",
                  customDataWorld: "World!"
              },
+             //You can use resolve to provide your controller with content or data that is custom to the state. 
+            // resolve is an optional map of dependencies which should be injected into the controller.
              resolve: {
                  resource1: function () {
                      return { 'value': 'Resolved resource1' };
                  }
              },
-
+             // The callbacks also have access to all the resolved dependencies.
              onEnter: function (resource1) {
                  console.log('onEnter state.state1 ' + resource1.value)
              },
@@ -67,7 +70,7 @@
             //controller: 'route1Controller'
         })
            .state('state.state1.detail', {
-               url: "/detail",
+               url: "/detail/:item",
                onEnter: function (resource1) {
                    console.log('onEnter state.state1.detail ' + resource1.value)
                },
@@ -81,8 +84,8 @@
                controller: ['$scope', '$stateParams',
                        function ($scope, $stateParams) {
                            var vm = this;
-                          // vm.contactId = $stateParams.item;
-                           vm.contactId = '111';
+                            vm.contactId = $stateParams.item;
+                           //vm.contactId = '111';
                            //vm.contact = $scope.$parent.welcome.contacts[$stateParams.contactId - 1];
                        }]
            })
