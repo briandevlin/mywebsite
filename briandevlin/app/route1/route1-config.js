@@ -78,8 +78,7 @@
                    console.log('onExit state.state1.detail ' + resource1.value)
                },
                templateUrl: "app/route1/route1-list-detail.html",
-               //controllerAs: 'route1Crtl',
-               //controller: 'route1Controller'
+              
                controllerAs: 'routeDetailCrtl',
                controller: ['$scope', '$stateParams',
                        function ($scope, $stateParams) {
